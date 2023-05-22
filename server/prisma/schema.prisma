@@ -37,12 +37,13 @@ model Table {
 }
 
 model Order {
-  id       String @unique @default(uuid())
-  quantity Int
-  dish     Dish   @relation(fields: [dishId], references: [id])
-  dishId   String
-  Table    Table  @relation(fields: [tableId], references: [id])
-  tableId  String
+  id        String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+  quantity  Int
+  dish      Dish     @relation(fields: [dishId], references: [id])
+  dishId    String
+  Table     Table    @relation(fields: [tableId], references: [id])
+  tableId   String
 }
 
 model Dish {
