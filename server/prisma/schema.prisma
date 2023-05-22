@@ -31,7 +31,7 @@ model Table {
   id       String    @unique @default(uuid())
   number   Int       @unique
   capacity Int
-  isFree   Boolean
+  isFree   Boolean   @default(true)
   bookings Booking[]
   orders   Order[]
 }

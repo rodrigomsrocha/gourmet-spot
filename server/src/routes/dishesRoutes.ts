@@ -16,7 +16,7 @@ export async function dishesRoutes(app: FastifyInstance) {
       request.body,
     )
 
-    const memory = prisma.dish.create({
+    const dish = prisma.dish.create({
       data: {
         name,
         description,
@@ -26,7 +26,7 @@ export async function dishesRoutes(app: FastifyInstance) {
       },
     })
 
-    return memory
+    return dish
   })
 
   app.get('/dishes', async (request) => {
