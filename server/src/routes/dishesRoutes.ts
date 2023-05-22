@@ -9,9 +9,10 @@ export async function dishesRoutes(app: FastifyInstance) {
       description: z.string(),
       coverURL: z.string().url(),
       prepTime: z.number(),
+      price: z.number(),
     })
 
-    const { name, description, coverURL, prepTime } = bodySchema.parse(
+    const { name, description, coverURL, prepTime, price } = bodySchema.parse(
       request.body,
     )
 
@@ -21,6 +22,7 @@ export async function dishesRoutes(app: FastifyInstance) {
         description,
         coverURL,
         prepTime,
+        price,
       },
     })
 
