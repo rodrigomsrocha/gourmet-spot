@@ -5,11 +5,11 @@ import { z } from 'zod'
 export async function bookingsRoutes(app: FastifyInstance) {
   app.post('/bookings', async (request, reply) => {
     const bodySchema = z.object({
-      clientId: z.string().uuid(),
+      clientID: z.string().uuid(),
       quantity: z.number(),
     })
 
-    const { clientId, quantity } = bodySchema.parse(request.body)
+    const { clientID, quantity } = bodySchema.parse(request.body)
 
     const freeTable = await prisma.table.findFirst({
       where: {
@@ -31,7 +31,7 @@ export async function bookingsRoutes(app: FastifyInstance) {
         },
         client: {
           connect: {
-            id: clientId,
+            id: clientID,
           },
         },
       },
@@ -45,5 +45,50 @@ export async function bookingsRoutes(app: FastifyInstance) {
     })
 
     return booking
+  })
+
+  app.get('/bookings', async (request) => {
+    const bookings = await prisma.booking.findMany()
+    return bookings
+  })
+
+  app.get('/bookings/:id', async (request) => {
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params)
+
+    const booking = await prisma.booking.findUniqueOrThrow({
+      where: { id },
+    })
+
+    return booking
+  })
+
+  app.delete('/bookings/:id', async (request, reply) => {
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params)
+
+    const booking = await prisma.booking.findUniqueOrThrow({
+      where: { id },
+      include: { table: true },
+    })
+
+    if (!booking) {
+      return reply.status(404).send({ error: 'Reserva não encontrada' })
+    }
+
+    await prisma.booking.delete({
+      where: { id },
+    })
+
+    await prisma.table.update({
+      where: { id: booking.table.id },
+      data: { isFree: true },
+    })
   })
 }
