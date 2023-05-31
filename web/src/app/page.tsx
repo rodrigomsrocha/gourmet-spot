@@ -1,7 +1,18 @@
+import { Table } from '~/components/Table'
+
 export default function Home() {
   return (
-    <div>
-      <p>Organize seu restaurante com estilo no Gourmet Spot!</p>
+    <div className="grid grid-cols-5 gap-[3.75rem]">
+      <Table />
+      <Table />
+      <Table isEmpty={false} />
+      <Table />
+      <Table />
+      <Table isEmpty={false} />
+      <Table />
+      <Table isEmpty={false} />
+      <Table />
+      <Table />
     </div>
   )
 }

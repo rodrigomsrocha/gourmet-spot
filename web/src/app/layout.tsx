@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${nunitoSans.variable} ${righteous.variable} font-sans bg-gray-50 text-gray-950 py-[7.5rem] px-[6.25rem]`}
       >
         <Header />
-        {children}
+        <main className="max-w-7xl mx-auto px-5">{children}</main>
       </body>
     </html>
   )

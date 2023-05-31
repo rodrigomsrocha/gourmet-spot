@@ -39,6 +39,12 @@ module.exports = {
           950: '#2a2725',
         },
       },
+      gridTemplateColumns: {
+        table: '1rem 1fr 1rem',
+      },
+      gridTemplateRows: {
+        table: '1rem 1fr 1rem',
+      },
     },
   },
   plugins: [],
