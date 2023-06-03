@@ -4,8 +4,13 @@ import { tablesRoutes } from './routes/tablesRoutes'
 import { clientsRoutes } from './routes/clientsRoutes'
 import { bookingsRoutes } from './routes/bookingsRoutes'
 import { ordersRoutes } from './routes/ordersRoutes'
+import cors from '@fastify/cors'
 
 const app = fastify()
+
+app.register(cors, {
+  origin: true,
+})
 
 app.register(dishesRoutes)
 app.register(tablesRoutes)

@@ -18,8 +18,10 @@ export async function tablesRoutes(app: FastifyInstance) {
     return memory
   })
 
-  app.get('/tables', async (request) => {
-    const dishes = await prisma.table.findMany()
+  app.get('/tables', async () => {
+    const dishes = await prisma.table.findMany({
+      include: { orders: true, bookings: true },
+    })
     return dishes
   })
 
@@ -32,6 +34,7 @@ export async function tablesRoutes(app: FastifyInstance) {
 
     const dish = await prisma.table.findUniqueOrThrow({
       where: { id },
+      include: { orders: true, bookings: true },
     })
 
     return dish

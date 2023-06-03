@@ -31,8 +31,29 @@ export async function ordersRoutes(app: FastifyInstance) {
     return order
   })
 
-  app.get('/orders', async () => {
-    const orders = await prisma.order.findMany()
+  app.get('/orders', async (request) => {
+    const querySchema = z.object({
+      tableId: z.string().optional(),
+    })
+
+    const { tableId } = querySchema.parse(request.query)
+
+    if (!tableId) {
+      const orders = await prisma.order.findMany({
+        include: {
+          dish: true
+        }
+      })
+      return orders
+    }
+
+    const orders = await prisma.order.findMany({
+      where: {
+        tableId,
+      },
+      include: { dish: true },
+    })
+
     return orders
   })
 
@@ -45,6 +66,7 @@ export async function ordersRoutes(app: FastifyInstance) {
 
     const order = await prisma.order.findUniqueOrThrow({
       where: { id },
+      include: { dish: true },
     })
 
     return order

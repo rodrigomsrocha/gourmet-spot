@@ -48,7 +48,21 @@ export async function bookingsRoutes(app: FastifyInstance) {
   })
 
   app.get('/bookings', async (request) => {
-    const bookings = await prisma.booking.findMany()
+    const querySchema = z.object({
+      tableId: z.string().optional(),
+    })
+
+    const { tableId } = querySchema.parse(request.query)
+
+    if (!tableId) {
+      const bookings = await prisma.booking.findMany()
+      return bookings
+    }
+
+    const bookings = await prisma.booking.findFirst({
+      where: { tableId },
+      include: { client: true, table: true },
+    })
     return bookings
   })
 

@@ -15,11 +15,8 @@ export default async function Home() {
     <div className="grid grid-cols-5 gap-[3.75rem]">
       {tables.map((table) => {
         return (
-          <Table
-            key={table.id}
-            isFree={table.isFree}
-            tableNumber={table.number}
-          />
+          /* @ts-expect-error Server Component */
+          <Table key={table.id} table={table} />
         )
       })}
     </div>
