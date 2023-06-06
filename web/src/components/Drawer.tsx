@@ -44,15 +44,7 @@ export function Drawer({ children, booking, orders }: DrawerProps) {
             {booking.client.name}
           </Dialog.Description>
           <div className="mt-[3.75rem] flex-1 flex flex-col gap-5">
-            <header className="flex items-end justify-between">
-              <strong className="font-bold text-2xl">Pedidos</strong>
-              <a
-                href=""
-                className="text-pink-400 underline text-sm font-bold transition-colors hover:text-pink-500"
-              >
-                fazer pedido
-              </a>
-            </header>
+            <strong className="font-bold text-2xl">Pedidos</strong>
             <div className="flex flex-col gap-5">
               {orders.map((order) => {
                 return <Order order={order} key={order.id} />
