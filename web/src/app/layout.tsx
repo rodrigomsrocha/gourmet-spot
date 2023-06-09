@@ -23,10 +23,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-br">
       <body
-        className={`${nunitoSans.variable} ${righteous.variable} font-sans bg-gray-50 text-gray-950 py-[7.5rem] max-w-7xl mx-auto px-5`}
+        className={`${nunitoSans.variable} ${righteous.variable} font-sans bg-gray-50 text-gray-950`}
       >
-        <Header />
-        <main>{children}</main>
+        <div className="py-[7.5rem] max-w-7xl mx-auto px-5">
+          <Header />
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   )

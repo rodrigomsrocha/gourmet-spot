@@ -2,9 +2,15 @@
 
 import { Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
+import { ChooseTableInput } from './ChooseTableInput'
 
 export function AddDishForm() {
   const [quantity, setQuantity] = useState(0)
+  const [table, setTable] = useState<null | string>(null)
+
+  const changeOrderTable = (tableId: string) => {
+    setTable(tableId)
+  }
 
   return (
     <form className="flex justify-between">
@@ -21,9 +27,7 @@ export function AddDishForm() {
             <Plus size={14} />
           </button>
         </div>
-        <div className="flex justify-center font-bold bg-gray-50 p-1 rounded-lg">
-          <span>Mesa 1</span>
-        </div>
+        <ChooseTableInput changeOrderTable={changeOrderTable} />
       </div>
       <button
         type="submit"
