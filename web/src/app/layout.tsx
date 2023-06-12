@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import './globals.css'
 import { Nunito_Sans as NunitoSans, Righteous } from 'next/font/google'
 import { Header } from '~/components/Header'
+import { Toaster } from 'react-hot-toast'
 
 const nunitoSans = NunitoSans({
   subsets: ['latin'],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`${nunitoSans.variable} ${righteous.variable} font-sans bg-gray-50 text-gray-950`}
       >
+        <Toaster />
         <div className="py-[7.5rem] max-w-7xl mx-auto px-5">
           <Header />
           <main>{children}</main>

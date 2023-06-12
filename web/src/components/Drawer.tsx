@@ -45,7 +45,7 @@ export function Drawer({ children, booking, orders }: DrawerProps) {
           </Dialog.Description>
           <div className="mt-[3.75rem] flex-1 flex flex-col gap-5">
             <strong className="font-bold text-2xl">Pedidos</strong>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 max-h-80 overflow-y-auto">
               {orders.map((order) => {
                 return <Order order={order} key={order.id} />
               })}

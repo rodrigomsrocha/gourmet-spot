@@ -11,10 +11,14 @@ interface Table {
 }
 
 interface ChooseTableInputProps {
+  tableId: string | undefined
   changeOrderTable: (table: string) => void
 }
 
-export function ChooseTableInput({ changeOrderTable }: ChooseTableInputProps) {
+export function ChooseTableInput({
+  changeOrderTable,
+  tableId,
+}: ChooseTableInputProps) {
   const [tables, setTables] = useState<Table[]>([])
 
   useEffect(() => {
@@ -27,7 +31,7 @@ export function ChooseTableInput({ changeOrderTable }: ChooseTableInputProps) {
   }, [])
 
   return (
-    <Select.Root onValueChange={changeOrderTable}>
+    <Select.Root value={tableId} onValueChange={changeOrderTable}>
       <Select.Trigger className="flex justify-center font-bold bg-gray-50 p-1 rounded-lg">
         <Select.Value placeholder="Mesa" />
       </Select.Trigger>

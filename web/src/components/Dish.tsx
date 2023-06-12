@@ -3,6 +3,7 @@ import { formatNumberToPrice } from '~/utils/formatNumberToPrice'
 import { AddDishForm } from './AddDishForm'
 
 interface DishType {
+  id: string
   name: string
   description: string
   coverURL: string
@@ -36,7 +37,7 @@ export function Dish({ dish }: DishProps) {
           </p>
         </div>
       </div>
-      <AddDishForm />
+      <AddDishForm dishId={dish.id} />
     </div>
   )
 }
