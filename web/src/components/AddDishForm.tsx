@@ -1,7 +1,7 @@
 'use client'
 
 import { Minus, Plus } from 'lucide-react'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, useTransition } from 'react'
 import { ChooseTableInput } from './ChooseTableInput'
 import { api } from '~/lib/api'
 import { toast } from 'react-hot-toast'
@@ -13,6 +13,7 @@ interface AddDishFormProps {
 
 export function AddDishForm({ dishId }: AddDishFormProps) {
   const router = useRouter()
+  const [, startTransition] = useTransition()
 
   const [quantity, setQuantity] = useState(0)
   const [table, setTable] = useState<string | undefined>(undefined)
@@ -30,6 +31,10 @@ export function AddDishForm({ dishId }: AddDishFormProps) {
       tableId: table,
       quantity,
       dishId,
+    })
+
+    startTransition(() => {
+      router.refresh()
     })
 
     toast.success('Pedido feito!', {
