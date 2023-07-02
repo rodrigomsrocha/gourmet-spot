@@ -3,6 +3,7 @@ import logo from '../assets/logo.svg'
 import { UserPlus } from 'lucide-react'
 import Link from 'next/link'
 import { CreateClientModal } from './CreateClientModal'
+import { BookingModal } from './BookingModal'
 
 export function Header() {
   return (
@@ -22,9 +23,11 @@ export function Header() {
             <UserPlus className="h-6 w-6" />
           </button>
         </CreateClientModal>
-        <button className="bg-pink-400 rounded-lg text-lg font-bold py-3 px-10 shadow-md transition-colors hover:bg-pink-500">
-          criar reserva
-        </button>
+        <BookingModal>
+          <button className="bg-pink-400 rounded-lg text-lg font-bold py-3 px-10 shadow-md transition-colors hover:bg-pink-500">
+            criar reserva
+          </button>
+        </BookingModal>
       </div>
     </header>
   )
