@@ -1,13 +1,24 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { ReactNode } from 'react'
+import { FormEvent, ReactNode, startTransition } from 'react'
+import { api } from '~/lib/api'
 
 interface CreateClientModalProps {
   children: ReactNode
 }
 
 export function CreateClientModal({ children }: CreateClientModalProps) {
+  const handleCreateClient = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+
+    await api.post('/clients', {
+      name: formData.get('name'),
+      email: formData.get('email'),
+    })
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>{children}</Dialog.Trigger>
@@ -17,13 +28,17 @@ export function CreateClientModal({ children }: CreateClientModalProps) {
           <Dialog.Title className="text-3xl font-bold relative flex items-center before:w-5 before:h-2 before:bg-pink-400 before:absolute before:-left-[3.75rem]">
             Criar cliente
           </Dialog.Title>
-          <form className="mt-[1.875rem] flex-1 flex flex-col gap-5">
+          <form
+            onSubmit={handleCreateClient}
+            className="mt-[1.875rem] flex-1 flex flex-col gap-5"
+          >
             <div className="flex flex-col gap-[0.625rem]">
               <label htmlFor="name">Nome</label>
               <input
                 className="bg-gray-100 p-2 rounded-lg"
                 type="text"
                 id="name"
+                name="name"
                 placeholder="Nome"
               />
             </div>
@@ -32,6 +47,8 @@ export function CreateClientModal({ children }: CreateClientModalProps) {
               <input
                 className="bg-gray-100 p-2 rounded-lg"
                 type="email"
+                id="email"
+                name="email"
                 placeholder="cliente@email.com"
               />
             </div>
